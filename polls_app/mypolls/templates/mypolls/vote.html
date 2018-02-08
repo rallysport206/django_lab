@@ -1,0 +1,15 @@
+{% extends 'mypolls/base.html' %}
+{% block content %}
+<h1>Question:{{ question.question_text }}</h1>
+
+<form class="" action="process" method="post">
+  {% csrf_token %}
+  {% for choice in question.choice_set.all %}
+  <div>
+    <input type='radio' name='choice' id='choice {{ forloop.counter }}' value='{{choice.id}}'>
+    <label>{{choice.choice_text}}</label>
+  </div>
+  {% endfor %}
+  <input type="submit" value="Vote!">
+</form>
+{% endblock %}
