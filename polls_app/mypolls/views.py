@@ -24,6 +24,7 @@ def process_vote(request, question_id):
     except (KeyError, Choice.DoesNotExist):
         return render(request, 'mypolls/vote.html', { 'question': q, 'error_message': 'you need to make a choice' })
     else:
-        selected_choice.votes += F('votes') + 1
+        selected_choice.votes = F('votes') + 1
         selected_choice.save()
-        return redirect(request, '/polls/{0}/results'.format(question_id))
+        return redirect('/polls/{0}/results'.format(question_id))
+        # return HttpResponseRedirect(reverse('mypolls:results', args=(question_id)))

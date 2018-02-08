@@ -2,11 +2,15 @@
 {% block content %}
 <h1>Question:{{ question.question_text }}</h1>
 
+{% if error_message %}
+  <p class='red'><strong>{{ error_message }}</strong></p>
+{% endif %}
+
 <form class="" action="process" method="post">
   {% csrf_token %}
   {% for choice in question.choice_set.all %}
   <div>
-    <input type='radio' name='choice' id='choice {{ forloop.counter }}' value='{{choice.id}}'>
+    <input class='with-gap' type='radio' name='choice' id='choice {{ forloop.counter }}' value='{{choice.id}}'>
     <label>{{choice.choice_text}}</label>
   </div>
   {% endfor %}
